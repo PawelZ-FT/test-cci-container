@@ -3,7 +3,7 @@ jobs:
    build:
      machine: true
      post:
-       - sudo pip install --upgrade awscli
+       - sudo -H pip install --upgrade awscli
      steps:
        - checkout
        - run: |
@@ -16,3 +16,5 @@ jobs:
             ls -al /
             echo
             aws --version
+            echo
+            aws ecr describe-repositories --registry-id 307921801440
