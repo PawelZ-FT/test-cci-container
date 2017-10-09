@@ -8,4 +8,5 @@ jobs:
        - run: |
             echo "hello world"
             pwd
-            cat .aws/config
+            ls -l
+            cat ~/.aws/config
