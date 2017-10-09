@@ -2,20 +2,9 @@ version: 2
 jobs:
    build:
      machine: true
-     post:
-       - sudo -H pip install --upgrade awscli
      steps:
        - checkout
        - run: |
-            pwd
-            echo
-            ls -al
-            echo
-            ls -al ~/
-            echo
-            ls -al /
-            echo
-            aws --version
-            echo
             aws --region eu-west-1 ecr describe-repositories --registry-id 307921801440
             aws --region eu-west-1 ecr get-login
+            curl -sS ifconfig.co
