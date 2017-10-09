@@ -6,7 +6,9 @@ jobs:
      steps:
        - checkout
        - run: |
-            echo "hello world"
             pwd
-            ls -l
-            cat ~/.aws/config
+            echo
+            ls -al
+            echo
+            ls -al ~/
+            
