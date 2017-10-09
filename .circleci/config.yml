@@ -18,3 +18,4 @@ jobs:
             aws --version
             echo
             aws --region eu-west-1 ecr describe-repositories --registry-id 307921801440
+            aws --region eu-west-1 ecr get-login
