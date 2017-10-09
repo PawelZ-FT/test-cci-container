@@ -11,4 +11,5 @@ jobs:
             ls -al
             echo
             ls -al ~/
-            
+            echo
+            ls -al /
