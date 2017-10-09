@@ -2,6 +2,8 @@ version: 2
 jobs:
    build:
      machine: true
+     pre:
+       - sudo pip install --upgrade awscli
      steps:
        - checkout
        - run: |
