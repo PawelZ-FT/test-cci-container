@@ -4,11 +4,12 @@ jobs:
      machine: true
      environment:
        - AWS_ACCOUNT: "307921801440"
-       - ECR_ENDPOINT: "307921801440.dkr.ecr.eu-west-1.amazonaws.com/"
+       - ECR_ENDPOINT: "307921801440.dkr.ecr.eu-west-1.amazonaws.com"
        - ECR_REPO_NS: "cms"
      steps:
        - checkout
        - run: |
+            pip install --upgrade awscli
             curl -sS -o ./docker-build/files/ec2-metadata http://s3.amazonaws.com/ec2metadata/ec2-metadata
             chmod 755 ./docker-build/files/ec2-metadata
             docker build -t ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM} \
@@ -18,7 +19,7 @@ jobs:
             echo "AWS_ACCOUNT: $AWS_ACCOUNT"
             echo "ECR_ENDPOINT: $ECR_ENDPOINT"
             echo
-            $(aws --region eu-west-1 ecr get-login)
+            $(aws --region eu-west-1 ecr get-login --no-include-email)
             docker tag ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM} \
               ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM}
             docker push ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM}
