@@ -7,12 +7,12 @@ COPY files/ec2-metadata /usr/local/bin/ec2-metadata
 
 RUN apk update && apk upgrade && \
     apk add --no-cache openjdk8 ca-certificates openssl && \
-    rm -rf /var/cache/apk/* && \
-    mkdir /usr/local/tomcat && \
-    mkdir /var/log/tomcat && \
-    tar zxf /tmp/apache-tomcat.tgz --strip-components=1 -C /usr/local/tomcat && \
-    rm -rf /usr/local/tomcat/webapps && \
-    rm -rf /usr/local/tomcat/logs
+    rm -rfv /var/cache/apk/* && \
+    mkdir -v /usr/local/tomcat && \
+    mkdir -v /var/log/tomcat && \
+    tar zxvf /tmp/apache-tomcat.tgz --strip-components=1 -C /usr/local/tomcat && \
+    rm -rfv /usr/local/tomcat/webapps && \
+    rm -rfv /usr/local/tomcat/logs
 
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
