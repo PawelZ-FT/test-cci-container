@@ -24,17 +24,17 @@ jobs:
               http://www-eu.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VER}/bin/apache-tomcat-${TOMCAT_VER}.tar.gz
             
             # Build Docker container
-            docker build -t ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM} \
+            docker build -t ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
               ./docker-build
 
             # Login into ECR
             $(aws --region eu-west-1 ecr get-login --no-include-email)
 
             # Tag container
-            docker tag ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM} \
-              ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM}
+            docker tag ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
+              ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
             
             # Push container to ECR
             docker push \
-              ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM}
+              ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
 
