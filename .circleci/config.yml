@@ -4,7 +4,7 @@ jobs:
      machine: true
      environment:
        - AWS_ACCOUNT: "307921801440"
-       - ECR_ENDPOINT: "{{ AWS_ACCOUNT }}.dkr.ecr.eu-west-1.amazonaws.com/"
+       - ECR_ENDPOINT: "${AWS_ACCOUNT}.dkr.ecr.eu-west-1.amazonaws.com/"
      steps:
        - checkout
        - run: |
