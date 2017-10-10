@@ -10,4 +10,6 @@ jobs:
             aws --region eu-west-1 ecr describe-repositories --registry-id 307921801440
             aws --region eu-west-1 ecr get-login
             docker build -t ${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM} ./docker-build
-            
+            docker ps -a
+            echo
+            docker images -a
