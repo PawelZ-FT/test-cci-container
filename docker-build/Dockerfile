@@ -9,8 +9,8 @@ RUN apk update && apk upgrade && \
     apk add --no-cache openjdk8 ca-certificates openssl && \
     rm -rf /var/cache/apk/* && \
     mkdir /usr/local/tomcat && \
-    mkdir /var/log/tomcat
-    tar zxf /tmp/apache-tomcat.tgz --strip-components=1 -C /usr/local/tomcat &&
+    mkdir /var/log/tomcat && \
+    tar zxf /tmp/apache-tomcat.tgz --strip-components=1 -C /usr/local/tomcat && \
     rm -rf /usr/local/tomcat/webapps && \
     rm -rf /usr/local/tomcat/logs
 
