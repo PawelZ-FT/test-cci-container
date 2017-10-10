@@ -20,7 +20,7 @@ jobs:
             chmod 755 ./docker-build/files/ec2-metadata
 
             # Download Tomcat
-            curl -sS -o ./docker-build/files/apache-tomcat-${TOMCAT_VER}.tar.gz
+            curl -sS -o ./docker-build/files/apache-tomcat-${TOMCAT_VER}.tar.gz \
               http://www-eu.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VER}/bin/apache-tomcat-${TOMCAT_VER}.tar.gz
             
             # Build Docker container
