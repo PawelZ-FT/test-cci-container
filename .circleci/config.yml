@@ -2,14 +2,17 @@ version: 2
 jobs:
    build:
      machine: true
+     environment:
+       AWS_ACCOUNT: 307921801440
+       ECR_ENDPOINT: {{ AWS_ACCOUNT }}.dkr.ecr.eu-west-1.amazonaws.com/
      steps:
        - checkout
        - run: |
             curl -sS -o ./docker-build/files/ec2-metadata http://s3.amazonaws.com/ec2metadata/ec2-metadata
             chmod 755 ./docker-build/files/ec2-metadata
-            aws --region eu-west-1 ecr describe-repositories --registry-id 307921801440
+            aws --region eu-west-1 ecr describe-repositories --registry-id $AWS_ACCOUNT
             aws --region eu-west-1 ecr get-login
-            docker build -t ${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM} ./docker-build
+            docker build -t cms/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM} ./docker-build
             docker images -a
             echo
             echo "ECR_ENDPOINT: $ECR_ENDPOINT"
