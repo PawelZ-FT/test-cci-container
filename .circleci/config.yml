@@ -9,19 +9,16 @@ jobs:
      steps:
        - checkout
        - run: |
+            pip install --upgrade pip
             pip install --upgrade awscli
-            curl -sS -o ./docker-build/files/ec2-metadata http://s3.amazonaws.com/ec2metadata/ec2-metadata
+            curl -sS -o ./docker-build/files/ec2-metadata \
+              http://s3.amazonaws.com/ec2metadata/ec2-metadata
             chmod 755 ./docker-build/files/ec2-metadata
             docker build -t ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM} \
               ./docker-build
-            docker images -a
-            echo
-            echo "AWS_ACCOUNT: $AWS_ACCOUNT"
-            echo "ECR_ENDPOINT: $ECR_ENDPOINT"
-            echo
             $(aws --region eu-west-1 ecr get-login --no-include-email)
             docker tag ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM} \
               ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM}
-            docker push ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM}
-
+            docker push \
+              ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_PREVIOUS_BUILD_NUM}
 
