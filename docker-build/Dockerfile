@@ -12,13 +12,13 @@ RUN apk update && apk upgrade && \
     adduser -D -s /sbin/nologin -h /usr/local/tomcat tomcat && \
     id tomcat && \
     tar zxvf /tmp/apache-tomcat.tgz --strip-components=1 -C /usr/local/tomcat && \
-    rm -v /tmp/apache-tomcat.tgz && \
     rm -v /usr/local/tomcat/bin/*.bat && \
     rm -rfv /usr/local/tomcat/webapps/* && \
-    chown tomcat. /usr/local/tomcat/webapps && \
-    chown tomcat. /usr/local/tomcat/work && \
-    chown tomcat. /usr/local/tomcat/temp && \
-    chown tomcat. /usr/local/tomcat/logs
+    rm -v /tmp/apache-tomcat.tgz && \
+    chown -v tomcat. /usr/local/tomcat/webapps && \
+    chown -v tomcat. /usr/local/tomcat/work && \
+    chown -v tomcat. /usr/local/tomcat/temp && \
+    chown -v tomcat. /usr/local/tomcat/logs
 
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
