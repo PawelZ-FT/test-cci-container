@@ -10,31 +10,35 @@ jobs:
      steps:
        - checkout
        - run: |
+            uname -a
+            echo
+            ls /etc/
+
             # Update pip & awscli
-            pip install --upgrade pip
-            pip install --upgrade awscli
+            #pip install --upgrade pip
+            #pip install --upgrade awscli
 
             # Download AWS ec2-metadata script
-            curl -sS -o ./docker-build/files/ec2-metadata \
-              http://s3.amazonaws.com/ec2metadata/ec2-metadata
-            chmod 755 ./docker-build/files/ec2-metadata
+            #curl -sS -o ./docker-build/files/ec2-metadata \
+            #  http://s3.amazonaws.com/ec2metadata/ec2-metadata
+            #chmod 755 ./docker-build/files/ec2-metadata
 
             # Download Tomcat
-            curl -sS -o ./docker-build/files/apache-tomcat-${TOMCAT_VER}.tar.gz \
-              http://www-eu.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VER}/bin/apache-tomcat-${TOMCAT_VER}.tar.gz
+            #curl -sS -o ./docker-build/files/apache-tomcat-${TOMCAT_VER}.tar.gz \
+            #  http://www-eu.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VER}/bin/apache-tomcat-${TOMCAT_VER}.tar.gz
             
             # Build Docker container
-            docker build -t ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
-              ./docker-build
+            #docker build -t ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
+            #  ./docker-build
 
             # Login into ECR
-            $(aws --region eu-west-1 ecr get-login --no-include-email)
+            #$(aws --region eu-west-1 ecr get-login --no-include-email)
 
             # Tag container
-            docker tag ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
-              ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
+            #docker tag ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
+            #  ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
             
             # Push container to ECR
-            docker push \
-              ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
+            #docker push \
+            #  ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
 
