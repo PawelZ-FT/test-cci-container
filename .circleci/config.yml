@@ -33,7 +33,7 @@ jobs:
             lsb_release -a
             curl -o /tmp/inspec_1.41.0-1_amd64.deb \
               https://packages.chef.io/files/stable/inspec/1.41.0/ubuntu/14.04/inspec_1.41.0-1_amd64.deb
-            sudo apt-get install -y /tmp/inspec_1.41.0-1_amd64.deb
+            sudo apt install -y /tmp/inspec_1.41.0-1_amd64.deb
 
        - run: |
             ## Push container image to ECR
