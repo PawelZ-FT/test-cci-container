@@ -32,10 +32,11 @@ jobs:
        - run: |
             ## Run tests
             # Install InSpec
-            curl -sS -o /tmp/inspec.deb \
-              https://packages.chef.io/files/stable/inspec/${INSPEC_VER}/ubuntu/$(lsb_release -r -s)/inspec_${INSPEC_VER}-1_amd64.deb
-            sudo dpkg -i /tmp/inspec.deb && sudo apt-get install -f
-            dpkg -l inspec
+            #curl -sS -o /tmp/inspec.deb \
+            #  https://packages.chef.io/files/stable/inspec/${INSPEC_VER}/ubuntu/$(lsb_release -r -s)/inspec_${INSPEC_VER}-1_amd64.deb
+            #sudo dpkg -i /tmp/inspec.deb && sudo apt-get install -f
+            #dpkg -l inspec
+            gem install inspec
 
             inspec exec --backend=docker ~/project/tests/base_container.rb \
               -t docker://${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
