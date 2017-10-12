@@ -14,7 +14,7 @@ control "base_container" do
   	its('group') { should eq 'tomcat' }
     its('groups') { should eq ['tomcat']}
     its('home') { should eq '/usr/local/tomcat' }
-    its('shell') { should eq '/bin/nologin' }
+    its('shell') { should eq '/sbin/nologin' }
   end
 
   %w(
@@ -35,7 +35,7 @@ control "base_container" do
     webapps_ls = inspec.command('ls -l /usr/local/tomcat/webapps/')
     describe webapps_ls do
       its('exit_status') { should eq 0 }
-      its('stdout') { should eq 'total 0' }
+      its('stdout') { should eq 'total 0\n' }
     end
 
     describe os_env('PATH') do
