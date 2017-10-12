@@ -18,8 +18,8 @@ control "base_container" do
   java = inspec.command('/usr/bin/java -version')
   describe java do
   	its('exit_status') { should eq 0 }
-    its('stdout') { should match /^(openjdk|java) version "1.8.0_[0-9]+"$/ }
-    its('stdout') { should match /^(OpenJDK|Java HotSpot\(TM\)) 64-Bit Server VM \(.*, mixed mode\)$/ }
+    its('stderr') { should match /^(openjdk|java) version "1.8.0_[0-9]+"$/ }
+    its('stderr') { should match /^(OpenJDK|Java HotSpot\(TM\)) 64-Bit Server VM \(.*, mixed mode\)$/ }
   end
     
   describe user('tomcat') do
