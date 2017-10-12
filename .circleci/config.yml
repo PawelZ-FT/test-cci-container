@@ -41,6 +41,8 @@ jobs:
             sudo docker ps -a
 
             echo
+            sudo docker images -a
+            
             sudo docker images -q ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
 
             #inspec exec --backend=docker ~/project/tests/base_container.rb \
