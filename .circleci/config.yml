@@ -21,27 +21,30 @@ jobs:
             chmod 755 ./docker-build/files/ec2-metadata
 
             # Download Tomcat
-            curl -sS -o ./docker-build/files/apache-tomcat-${TOMCAT_VER}.tar.gz \
+            #curl -sS -o ./docker-build/files/apache-tomcat-${TOMCAT_VER}.tar.gz \
               http://www-eu.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VER}/bin/apache-tomcat-${TOMCAT_VER}.tar.gz
             
             # Build Docker container
-            docker build -t ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
+            #docker build -t ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
               ./docker-build
 
        - run: |
             ## Run tests
             lsb_release -a
+            curl -o /tmp/inspec_1.41.0-1_amd64.deb \
+              https://packages.chef.io/files/stable/inspec/1.41.0/ubuntu/14.04/inspec_1.41.0-1_amd64.deb
+            apt-get install -y /tmp/inspec_1.41.0-1_amd64.deb
 
        - run: |
             ## Push container image to ECR
             # Login into ECR
-            $(aws --region eu-west-1 ecr get-login --no-include-email)
+            #$(aws --region eu-west-1 ecr get-login --no-include-email)
 
             # Tag container
-            docker tag ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
+            #docker tag ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
               ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
             
             # Push container to ECR
-            docker push \
+            #docker push \
               ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
 
