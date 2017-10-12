@@ -40,11 +40,11 @@ jobs:
 
             sudo docker images -a
             container_image=$(sudo docker images -q ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM})
-            sudo docker run -d --name test_${CIRCLE_BUILD_NUM} $container_image /bin/sleep 9m 
+            sudo docker run -dti --name test_${CIRCLE_BUILD_NUM} $container_image /bin/sh 
 
             sudo docker ps -a
-            
-            inspec exec --backend=docker ~/project/tests/base_container.rb \
+
+            inspec exec ~/project/tests/base_container.rb \
               -t docker://test_${CIRCLE_BUILD_NUM}
 
        - run: |
