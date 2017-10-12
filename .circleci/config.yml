@@ -38,8 +38,13 @@ jobs:
             #dpkg -l inspec
             gem install inspec
 
-            inspec exec --backend=docker ~/project/tests/base_container.rb \
-              -t docker://${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
+            sudo docker ps -a
+
+            echo
+            sudo docker images -a
+
+            #inspec exec --backend=docker ~/project/tests/base_container.rb \
+            #  -t docker://${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
 
        - run: |
             ## Push container image to ECR
