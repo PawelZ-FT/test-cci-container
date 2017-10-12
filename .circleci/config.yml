@@ -35,7 +35,7 @@ jobs:
               https://packages.chef.io/files/stable/inspec/1.41.0/ubuntu/14.04/inspec_1.41.0-1_amd64.deb
             ls -l /tmp/inspec_1.41.0-1_amd64.deb
             ruby --version
-            sudo apt install -y /tmp/inspec_1.41.0-1_amd64.deb
+            sudo dpkg -i /tmp/inspec_1.41.0-1_amd64.deb && sudo apt-get install -f
 
        - run: |
             ## Push container image to ECR
