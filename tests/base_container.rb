@@ -83,7 +83,7 @@ control "base_container" do
      /usr/local/tomcat/conf/
      /usr/local/tomcat/lib/
     ).each do |directory|
-    	inspec.command('ls -1 #{directory}').stdout.each do |filename|
+    	inspec.command('ls -1 #{directory}').stdout.each_line do |filename|
     	  describe file('#{directory}/#{filename}') do
     	  	it { should exist }
     	    it { should be_file }
