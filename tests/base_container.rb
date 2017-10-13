@@ -78,14 +78,12 @@ control "base_container" do
     	end
     end
 
-puts Dir.pwd
-
   %w(
      /usr/local/tomcat/bin/
      /usr/local/tomcat/conf/
      /usr/local/tomcat/lib/
     ).each do |directory|
-    	inspec.command('ls -1 #{directory}').each do |filename|
+    	inspec.command('ls -1 #{directory}').stdout.each do |filename|
     	  describe file('#{directory}/#{filename}') do
     	  	it { should exist }
     	    it { should be_file }
