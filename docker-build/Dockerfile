@@ -15,8 +15,10 @@ RUN apk update && apk upgrade && \
     rm -v /usr/local/tomcat/bin/*.bat && \
     rm -rfv /usr/local/tomcat/webapps/* && \
     rm -v /tmp/apache-tomcat.tgz && \
-    find /usr/local/tomcat/ -perm 640 -exec chmod 644 {} \; && \
-    find /usr/local/tomcat/ -perm 750 -exec chmod 755 {} \; && \
+    find /usr/local/tomcat/ -perm 640 -exec chmod -v 644 {} \; && \
+    find /usr/local/tomcat/ -perm 750 -exec chmod -v 755 {} \; && \
+    chmod -v 755 /usr/local/tomcat/conf && \
+    chmod -v 644 /usr/local/tomcat/conf/* && \
     chown -v tomcat. /usr/local/tomcat/webapps && \
     chown -v tomcat. /usr/local/tomcat/work && \
     chown -v tomcat. /usr/local/tomcat/temp && \

@@ -20,7 +20,7 @@ control "base_container" do
   	its('group') { should eq 'root' }
   	its('mode') { should cmp '0755' }
   end
-  
+
   # The `package` resource is not supported on your OS yet.
   #describe package('openjdk8') do
   #	it { should be_installed }
@@ -61,6 +61,38 @@ control "base_container" do
     	  its('group') { should eq 'tomcat' }
     	end
     end
+
+  %w(
+     /usr/local/tomcat/bin
+     /usr/local/tomcat/conf
+     /usr/local/tomcat/lib
+    ).each do |directory|
+    	describe file(directory) do
+    	  it { should exist }
+    	  it { should be_directory }
+    	  it { should be_owned_by 'root' }
+    	  its('group') { should eq 'root' }
+    	  it { should be_readable.by_user('tomcat') }
+    	  it { should_not be_writable.by_('others') }
+    	  it { should_not be_writable.by_user('tomcat') }
+    	end
+    end
+
+  %w(
+     /usr/local/tomcat/bin/*
+     /usr/local/tomcat/conf/*
+     /usr/local/tomcat/lib/*
+    ).each do |files|
+    	describe file(files) do
+    	  it { should exist }
+    	  it { should be_file }
+    	  it { should be_owned_by 'root' }
+    	  its('group') { should eq 'root' }
+    	  it { should be_readable.by_user('tomcat') }
+    	  it { should_not be_writable.by_('others') }
+    	  it { should_not be_writable.by_user('tomcat') }
+    	end
+    end   
 
   webapps_ls = inspec.command('ls -l /usr/local/tomcat/webapps/')
   describe webapps_ls do
