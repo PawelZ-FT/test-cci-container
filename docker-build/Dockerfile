@@ -11,7 +11,7 @@ RUN apk update && apk upgrade && \
     echo "Adding tomcat user" && \
     adduser -D -s /sbin/nologin -h /usr/local/tomcat tomcat && \
     id tomcat && \
-    tar zxvf /tmp/apache-tomcat.tgz --strip-components=1 -C /usr/local/tomcat && \
+    tar zxvf /tmp/apache-tomcat.tgz --strip-components=1 --group=tomcat -C /usr/local/tomcat && \
     rm -v /usr/local/tomcat/bin/*.bat && \
     rm -rfv /usr/local/tomcat/webapps/* && \
     rm -v /tmp/apache-tomcat.tgz && \

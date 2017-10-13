@@ -4,11 +4,6 @@ control "base_container" do
   title "Checking base container"
   desc "Checking tomcat user and dirs, JDK8"
 
-  # The `package` resource is not supported on your OS yet.
-  #describe package('openjdk8') do
-  #	it { should be_installed }
-  #	its('version') { should cmp >= '8' }
-  #end
 
   describe file('/container-entry.sh') do
   	it { should exist }
@@ -25,6 +20,12 @@ control "base_container" do
   	its('group') { should eq 'root' }
   	its('mode') { should cmp '0755' }
   end
+  
+  # The `package` resource is not supported on your OS yet.
+  #describe package('openjdk8') do
+  #	it { should be_installed }
+  #	its('version') { should cmp >= '8' }
+  #end
 
   describe file('/usr/bin/java') do
   	it { should exist }
