@@ -73,24 +73,26 @@ control "base_container" do
     	  it { should be_owned_by 'root' }
     	  its('group') { should eq 'root' }
     	  it { should be_readable.by_user('tomcat') }
-    	  it { should_not be_writable.by_('others') }
+    	  it { should_not be_writable.by('others') }
     	  it { should_not be_writable.by_user('tomcat') }
     	end
     end
 
   %w(
-     /usr/local/tomcat/bin/*
-     /usr/local/tomcat/conf/*
-     /usr/local/tomcat/lib/*
-    ).each do |files|
-    	describe file(files) do
-    	  it { should exist }
-    	  it { should be_file }
-    	  it { should be_owned_by 'root' }
-    	  its('group') { should eq 'root' }
-    	  it { should be_readable.by_user('tomcat') }
-    	  it { should_not be_writable.by_('others') }
-    	  it { should_not be_writable.by_user('tomcat') }
+     /usr/local/tomcat/bin/
+     /usr/local/tomcat/conf/
+     /usr/local/tomcat/lib/
+    ).each do |directory|
+    	Dir.foreach(directory) do |filename|
+    	  describe file(filename) do
+    	  	it { should exist }
+    	    it { should be_file }
+    	    it { should be_owned_by 'root' }
+    	    its('group') { should eq 'root' }
+    	    it { should be_readable.by_user('tomcat') }
+    	    it { should_not be_writable.by('others') }
+    	    it { should_not be_writable.by_user('tomcat') }
+    	  end
     	end
     end   
 
