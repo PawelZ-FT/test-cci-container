@@ -11,10 +11,12 @@ RUN apk update && apk upgrade && \
     echo "Adding tomcat user" && \
     adduser -D -s /sbin/nologin -h /usr/local/tomcat tomcat && \
     id tomcat && \
-    tar zxvf /tmp/apache-tomcat.tgz --strip-components=1 --group=tomcat -C /usr/local/tomcat && \
+    tar zxvf /tmp/apache-tomcat.tgz --strip-components=1 -C /usr/local/tomcat && \
     rm -v /usr/local/tomcat/bin/*.bat && \
     rm -rfv /usr/local/tomcat/webapps/* && \
     rm -v /tmp/apache-tomcat.tgz && \
+    find /usr/local/tomcat/ -perm 640 -exec chmod 644 {} \; && \
+    find /usr/local/tomcat/ -perm 750 -exec chmod 755 {} \; && \
     chown -v tomcat. /usr/local/tomcat/webapps && \
     chown -v tomcat. /usr/local/tomcat/work && \
     chown -v tomcat. /usr/local/tomcat/temp && \
