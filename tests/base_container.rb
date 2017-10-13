@@ -83,9 +83,9 @@ control "base_container" do
      /usr/local/tomcat/conf/*
      /usr/local/tomcat/lib/*
     ).each do |directory|
-    	puts 'directory: #{directory}'
-    	inspec.command('ls -1 #{directory}').stdout.each_line do |filename|
-    	  puts 'filename: #{filename}'
+    	puts "directory: #{directory}"
+    	inspec.command("ls -1 #{directory}").stdout.each_line do |filename|
+    	  puts "filename: #{filename}"
     	  describe file(filename) do
     	  	it { should exist }
     	    it { should be_file }
