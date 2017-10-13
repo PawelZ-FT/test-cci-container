@@ -12,11 +12,10 @@ jobs:
        - run: |
             ## Build container
             # Download AWS ec2-metadata script
-            ls -al ./
-            ls -al ./docker-build/files
             curl -sS -o ./docker-build/files/ec2-metadata \
               http://s3.amazonaws.com/ec2metadata/ec2-metadata
             chmod 755 ./docker-build/files/ec2-metadata
+            chmod 755 ./docker-build/files/container-entry.sh
 
             # Download Tomcat
             curl -sS -o ./docker-build/files/apache-tomcat-${TOMCAT_VER}.tar.gz \
