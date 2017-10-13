@@ -72,8 +72,8 @@ control "base_container" do
     	  it { should be_directory }
     	  it { should be_owned_by 'root' }
     	  its('group') { should eq 'root' }
-    	  it { should be_executable.by_user('tomcat') }
-    	 # it { should_not be_writable.by('others') }
+    	#  it { should be_executable.by_user('tomcat') }
+    	  it { should_not be_writable.by('others') }
     	  it { should_not be_writable.by_user('tomcat') }
     	end
     end
