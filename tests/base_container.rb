@@ -72,7 +72,7 @@ control "base_container" do
     	  it { should be_directory }
     	  it { should be_owned_by 'root' }
     	  its('group') { should eq 'root' }
-    	  it { should be_readable.by_user('tomcat') }
+    	  it { should be_executable.by_user('tomcat') }
     	  it { should_not be_writable.by('others') }
     	  it { should_not be_writable.by_user('tomcat') }
     	end
@@ -83,14 +83,12 @@ control "base_container" do
      /usr/local/tomcat/conf/*
      /usr/local/tomcat/lib/*
     ).each do |directory|
-    	puts "directory: #{directory}"
     	inspec.command("ls -1 #{directory}").stdout.each_line do |filename|
-    	  puts "filename: #{filename}"
     	  describe file(filename) do
     	  	it { should exist }
     	    it { should be_file }
     	    it { should be_owned_by 'root' }
-    	    its('group') { should eq 'root' }
+    	    its('mode') { should cmp '0644' }
     	    it { should be_readable.by_user('tomcat') }
     	    it { should_not be_writable.by('others') }
     	    it { should_not be_writable.by_user('tomcat') }
