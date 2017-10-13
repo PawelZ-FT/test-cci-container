@@ -2,13 +2,29 @@ control "base_container" do
 
   impact 1.0
   title "Checking base container"
-  desc "Checking tomcat user and dirs, OpenJDK8"
+  desc "Checking tomcat user and dirs, JDK8"
 
   # The `package` resource is not supported on your OS yet.
   #describe package('openjdk8') do
   #	it { should be_installed }
   #	its('version') { should cmp >= '8' }
   #end
+
+  describe file('/container-entry.sh') do
+  	it { should exist }
+  	it { should be_file }
+  	it { should be_owned_by 'root' }
+  	its('group') { should eq 'root' }
+  	its('mode') { should cmp '0755' }
+  end
+
+  describe file('/usr/local/bin/ec2-metadata') do
+  	it { should exist }
+  	it { should be_file }
+  	it { should be_owned_by 'root' }
+  	its('group') { should eq 'root' }
+  	its('mode') { should cmp '0755' }
+  end
 
   describe file('/usr/bin/java') do
   	it { should exist }
@@ -45,19 +61,23 @@ control "base_container" do
     	end
     end
 
-    webapps_ls = inspec.command('ls -l /usr/local/tomcat/webapps/')
-    describe webapps_ls do
-      its('exit_status') { should eq 0 }
-      its('stdout') { should match /^total 0$/ }
-    end
+  webapps_ls = inspec.command('ls -l /usr/local/tomcat/webapps/')
+  describe webapps_ls do
+    its('exit_status') { should eq 0 }
+    its('stdout') { should match /^total 0$/ }
+  end
 
-    describe os_env('PATH') do
-      its('content') { should include '/usr/lib/jvm/java-1.8-openjdk/bin' }
-    end
+  describe file('/tmp/apache-tomcat.tgz') do
+  	it { should_not exist }
+  end
 
-    describe os_env('JAVA_HOME') do
-      its('content') { should eq '/usr/lib/jvm/java-1.8-openjdk' }
-    end
+  describe os_env('PATH') do
+  	its('content') { should include '/usr/lib/jvm/java-1.8-openjdk/bin' }
+  end
+
+  describe os_env('JAVA_HOME') do
+  	its('content') { should eq '/usr/lib/jvm/java-1.8-openjdk' }
+  end
 
 
  end
