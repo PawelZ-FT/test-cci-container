@@ -78,6 +78,8 @@ control "base_container" do
     	end
     end
 
+puts Dir.pwd
+
   %w(
      /usr/local/tomcat/bin
      /usr/local/tomcat/conf
