@@ -79,12 +79,12 @@ control "base_container" do
     end
 
   %w(
-     /usr/local/tomcat/bin/
-     /usr/local/tomcat/conf/
-     /usr/local/tomcat/lib/
+     /usr/local/tomcat/bin
+     /usr/local/tomcat/conf
+     /usr/local/tomcat/lib
     ).each do |directory|
     	Dir.foreach(directory) do |filename|
-    	  describe file(filename) do
+    	  describe file('#{directory}/#{filename}') do
     	  	it { should exist }
     	    it { should be_file }
     	    it { should be_owned_by 'root' }
