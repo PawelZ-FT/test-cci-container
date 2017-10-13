@@ -114,5 +114,4 @@ control "base_container" do
   	its('content') { should eq '/usr/lib/jvm/java-1.8-openjdk' }
   end
 
-
  end
