@@ -53,7 +53,7 @@ jobs:
             docker tag ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
               ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:latest
             
-            # Push container to ECR
+            # Pushing container to ECR
             docker push \
               ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}
 
