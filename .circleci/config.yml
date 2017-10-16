@@ -47,7 +47,7 @@ jobs:
             # Login into ECR
             $(aws --region eu-west-1 ecr get-login --no-include-email)
 
-            # Tag container
+            # Tagging container
             docker tag ${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
               ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
             docker tag ${ECR_ENDPOINT}/${ECR_REPO_NS}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM} \
